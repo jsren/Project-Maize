@@ -16,7 +16,7 @@ import uk.ac.ed.maize.meta.Visibility;
 
 public class MethodParser
 {
-	public static Method parse(ParserContext context, Token[] tokens, boolean hasBody) 
+	public static Method parse(ParserContext context, Token[] tokens, boolean hasBody, Token bodyStart) 
 			throws CompilerError
 	{
 		String     name       = null;
@@ -208,6 +208,6 @@ public class MethodParser
 		}
 		
 		return new Method(tokens[0].getLineIndex(), context.getCurrentScope(), name, returnType, visibility, atts, 
-				constructr, hasBody, params.toArray(new Parameter[0]));
+				constructr, hasBody, params.toArray(new Parameter[0]), bodyStart);
 	}
 }

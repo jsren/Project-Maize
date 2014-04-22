@@ -25,7 +25,7 @@ public class Operator extends Member implements Parameterised
 	@Override
 	public boolean matchesSignature(Member member)
 	{
-		if (member.getType() != MemberType.Operator)
+		if (member.getType() == MemberType.Operator)
 		{
 			// Compare name and return type
 			if (!member.getName().equals(this.getName()) ||

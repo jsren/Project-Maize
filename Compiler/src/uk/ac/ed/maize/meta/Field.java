@@ -2,8 +2,8 @@ package uk.ac.ed.maize.meta;
 
 import java.util.EnumSet;
 
+import uk.ac.ed.maize.code.Expression;
 import uk.ac.ed.maize.exceptions.ObjectFrozenException;
-import uk.ac.ed.maize.generator.Expression;
 import uk.ac.ed.maize.parser.Attribute;
 
 public class Field extends Member

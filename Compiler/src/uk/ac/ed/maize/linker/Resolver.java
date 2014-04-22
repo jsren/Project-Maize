@@ -8,11 +8,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import uk.ac.ed.maize.base.BaseType;
+import uk.ac.ed.maize.code.Expression;
 import uk.ac.ed.maize.exceptions.CompilerError;
 import uk.ac.ed.maize.exceptions.NameError;
 import uk.ac.ed.maize.exceptions.InternalError;
 import uk.ac.ed.maize.exceptions.ObjectFrozenException;
-import uk.ac.ed.maize.generator.Expression;
 import uk.ac.ed.maize.meta.CodeUnit;
 import uk.ac.ed.maize.meta.CodeUnitRef;
 import uk.ac.ed.maize.meta.Field;
@@ -52,7 +52,7 @@ public final class Resolver
 			if (refs[i].getIsResolved()) {
 				this.scopes[n] = refs[i].getResolvedUnit();
 			}
-			else throw new InternalError("CodeUnitRef not resolveds", refs[i].getToken());
+			else throw new InternalError("CodeUnitRef not resolved", refs[i].getToken());
 		}
 	}
 	

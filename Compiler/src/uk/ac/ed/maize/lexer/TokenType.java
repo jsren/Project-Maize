@@ -3,11 +3,10 @@ package uk.ac.ed.maize.lexer;
 /*
  * Other keywords:
  * -------------------------------------
- * bool   char    double float  int  int32
- * long   sbyte   short  string uint uint32
- * ulong  byte    ushort void   true false
- * global nullptr
- * 
+ * bool   byte char  double float false 
+ * global int  int32 long   sbyte short 
+ * string true uint  uint32 ulong ushort 
+ * void 
  */
 
 /**
@@ -46,17 +45,17 @@ public enum TokenType
 	
 	private static final String[] keywords = 
 	{ 
-		"abstract", "asm",      "at",       "alias",    "align",     "base",
-		"break",    "checked",  "class",    "const",    "continue",  "else", 
-		"enum",     "explicit", "export",   "extern",   "for",       "goto", 
-		"if",       "include",  "inline",   "internal", "is",		 "namespace", 
-		"new",      "operator", "params",   "private",  "protected", "public",
-		"register", "return",   "sealed",   "sizeof",   "static",    "struct",
-		"template", "this",     "union",    "using",    "virtual",   "volatile", 
-		"while",    "link",     "override", "interface"
+		"abstract", "alias",   "align",     "asm",      "at",        "base",
+		"break",    "checked", "class",     "const",    "continue",  "delete",
+		"else",		"enum",    "explicit",  "export",   "extern",    "for",       
+		"goto",		"if",      "include",   "inline",   "interface", "internal",
+		"is",       "link",    "namespace", "new",      "operator",  "override",
+		"params",   "private", "protected", "public",   "register",  "return",  
+		"sealed",   "sizeof",  "static",    "struct",   "template",  "this",    
+		"union",    "using",   "virtual",   "volatile", "while"
 	};
-	private static final char[] delimiters = { '{', '}', '#', '(', ')', ':', ';', '@', '[', ']', '`', '$', '%', ',' };
-	private static final char[] operators  = { '=', '?', '<', '>', '^', '~', '&', '|', '!', '/', '*', '+', '-' };
+	private static final char[] delimiters = { '{', '}', '#', '(', ')', ':', ';', '@', '[', ']', '`', '$', ',' };
+	private static final char[] operators  = { '=', '?', '<', '>', '^', '~', '&', '|', '!', '/', '*', '+', '-', '%' };
 	
 	public static final boolean isHexDigit(char c)
 	{
@@ -85,8 +84,7 @@ public enum TokenType
 			if (keywords[i].equals(s)) return true;
 		}
 		return false;
-	}
-	
+	}	
 	public static final boolean isComment(TokenType type) {	
 		return type == BlockComment || type == LineComment;
 	}	

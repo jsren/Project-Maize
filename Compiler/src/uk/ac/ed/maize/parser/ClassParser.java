@@ -119,7 +119,7 @@ public class ClassParser
 		for (int i = 0; i < baseTypes.length; i++)
 		{
 			Token t = bases.get(i);
-			baseTypes[i] = new TypeRef(context, t, false, false, 0);
+			baseTypes[i] = new TypeRef(t, false, false, 0);
 		}
 		
 		// Default to internal visibility if none given

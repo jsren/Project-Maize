@@ -185,7 +185,7 @@ public class FirstPassParser
 							// == PARSE FUNCTION BLOCKS ==
 							if (!parsed)
 							{
-								Member newMember = MethodParser.parse(context, tokens, true);
+								Member newMember = MethodParser.parse(context, tokens, true, token);
 								context.getCurrentScope().addMember(newMember);
 								this.skipBlock(); // Skip function body for now
 							}

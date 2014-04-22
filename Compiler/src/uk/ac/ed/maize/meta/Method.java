@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import uk.ac.ed.maize.exceptions.CompilerError;
 import uk.ac.ed.maize.exceptions.TypeError;
+import uk.ac.ed.maize.lexer.Token;
 import uk.ac.ed.maize.parser.Attribute;
 
 public class Method extends Member implements Parameterised
@@ -13,21 +14,24 @@ public class Method extends Member implements Parameterised
 	private boolean hasBody;
 	private boolean isConstructor;
 	private Parameter[] params;
+	private Token bodyStart;
 	
 	public Parameter[] getParameters()    { return this.params; }
 	public boolean     getReturnsVoid()   { return this.getValueType() == null; }
 	public boolean     getIsConstructor() { return this.isConstructor; }
 	public boolean     getHasBody()       { return this.hasBody; }
+	public Token       getBodyStart()     { return this.bodyStart; }     
 	
 	public Method(int line, Scope scope, String name, TypeRef type, Visibility vis,
 			EnumSet<Attribute> atts, boolean constructor, boolean hasBody,
-			Parameter[] params) throws CompilerError
+			Parameter[] params, Token bodyStart) throws CompilerError
 	{
 		super(line, scope, name, type, vis, atts, MemberType.Function);
 		
 		this.params        = params;
 		this.hasBody       = hasBody;
 		this.isConstructor = constructor;
+		this.bodyStart     = bodyStart;
 	}
 	
 	public void validate() throws CompilerError

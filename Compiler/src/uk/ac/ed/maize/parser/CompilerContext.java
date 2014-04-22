@@ -5,6 +5,7 @@ import java.io.File;
 import uk.ac.ed.maize.CachedArrayList;
 import uk.ac.ed.maize.Freezable;
 import uk.ac.ed.maize.Log;
+import uk.ac.ed.maize.ParameterMap;
 import uk.ac.ed.maize.exceptions.ObjectFrozenException;
 import uk.ac.ed.maize.meta.CodeUnit;
 
@@ -14,6 +15,7 @@ public class CompilerContext implements Freezable
 	
 	public Log log;
 	
+	private ParameterMap params;
 	private CachedArrayList<CodeUnit> codeUnits;
 	
 	public CompilerContext() {
@@ -22,6 +24,9 @@ public class CompilerContext implements Freezable
 	
 	public CodeUnit[] getLoadedCodeUnits() {
 		return this.codeUnits.toArray();
+	}
+	public ParameterMap getParameters() {
+		return this.params;
 	}
 	
 	public CodeUnit getCodeUnit(File filepath)
@@ -38,6 +43,12 @@ public class CompilerContext implements Freezable
 	{
 		if (this.frozen) throw new ObjectFrozenException(this);
 		else this.codeUnits.add(unit);
+	}
+	
+	public void setParameters(ParameterMap params) throws ObjectFrozenException
+	{
+		if (this.frozen) throw new ObjectFrozenException(this);
+		else this.params = params;
 	}
 	
 	@Override

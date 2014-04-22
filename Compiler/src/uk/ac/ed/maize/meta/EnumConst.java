@@ -2,9 +2,9 @@ package uk.ac.ed.maize.meta;
 
 import java.util.EnumSet;
 
+import uk.ac.ed.maize.code.Expression;
 import uk.ac.ed.maize.exceptions.CompilerError;
 import uk.ac.ed.maize.exceptions.EvaluationError;
-import uk.ac.ed.maize.generator.Expression;
 import uk.ac.ed.maize.lexer.Token;
 import uk.ac.ed.maize.parser.Attribute;
 import uk.ac.ed.maize.parser.ParserContext;

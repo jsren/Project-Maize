@@ -7,7 +7,6 @@ import uk.ac.ed.maize.base.BaseType;
 import uk.ac.ed.maize.exceptions.CompilerError;
 import uk.ac.ed.maize.exceptions.InternalError;
 import uk.ac.ed.maize.lexer.Token;
-import uk.ac.ed.maize.parser.ParserContext;
 
 public class TypeRef implements MetaReference<Type>
 {
@@ -61,7 +60,7 @@ public class TypeRef implements MetaReference<Type>
 		this.namespaces = Arrays.copyOfRange(nschain, 0, nschain.length - 1);
 	}
 	
-	public TypeRef(ParserContext context, Token token, boolean array, boolean _const, int ptrLvl) throws CompilerError
+	public TypeRef(Token token, boolean array, boolean _const, int ptrLvl) throws CompilerError
 	{
 		this.token       = token;
 		this.typeName    = token.getLexeme();

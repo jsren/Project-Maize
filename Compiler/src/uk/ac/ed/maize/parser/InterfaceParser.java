@@ -107,7 +107,7 @@ public class InterfaceParser
 		for (int i = 0; i < baseTypes.length; i++)
 		{
 			Token token  = new Token(TokenType.Identifier, bases.get(i), line, Char);
-			baseTypes[i] = new TypeRef(context, token, false, false, 0);
+			baseTypes[i] = new TypeRef(token, false, false, 0);
 		}
 		
 		// Default to internal visibility if none given

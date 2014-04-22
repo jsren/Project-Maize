@@ -123,6 +123,9 @@ public final class Application
 			}
 		}
 		
+		// Now that parameters have been loaded, assign to the compiler context
+		globalContext.setParameters(parameters);
+		
 		// === BEGIN COMPILATION ===
 		
 		// Start first pass of parsing
@@ -143,6 +146,9 @@ public final class Application
 		// *SYNCHRONISE HERE*
 		
 		// TODO: Now is the time for any pre-generation plugins to act. 
+		
+		
+		
 		// Now attempt to resolve all TypeRefs and CodeUnitRefs, generate member offsets 
 		// and type sizes, and to evaluate compile-time expressions.
 		for (CodeUnit unit : globalContext.getLoadedCodeUnits()) {
@@ -157,8 +163,8 @@ public final class Application
 		File outputFile = outputPath.toFile();
 		if (!outputFile.createNewFile())
 		{
-			if (!parameters.get("fo")) globalContext.log.error("Output file already exists; use the -fo flag to enable overwriting");
-			else if (!outputFile.delete()) globalContext.log.error("Error overwriting file - ensure write/delete access");
+			     if (!parameters.get("fo")) globalContext.log.error("Output file already exists; use the -fo flag to enable overwriting");
+			else if (!outputFile.delete())  globalContext.log.error("Error overwriting file - ensure write/delete access");
 			outputFile.createNewFile();
 		}
 		

@@ -26,11 +26,6 @@ public final class EnumType
 			
 			type    = new Type(null, null, "Enum", true, false, false, Visibility.Public, new TypeRef[0]);
 			typeRef = new TypeRef(type, false, true, 0);
-			
-			type.addMember(new Method(0, type, "hasFlag", BooleanType.getBasicTypeRef(), 
-					Visibility.Public, Static, false, false, new Parameter[1]));
-			
-			//type.addMember(new Method(0, "getValue", ));
 		} 
 		catch (Exception e)
 		{

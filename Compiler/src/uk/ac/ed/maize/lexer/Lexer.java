@@ -8,7 +8,7 @@ import uk.ac.ed.maize.exceptions.LexerError;
 
 
 /**
- * A lexical analyzer for JPP. Scans through the 
+ * Lexical analyzer. Scans through the 
  * source breaking it down into individual tokens.
  * 
  * @author JSR
@@ -109,6 +109,7 @@ public class Lexer
 		 */
 		boolean escaped  = false;
 		char    nextChar = lastChar;
+		boolean identDot = false;
 		
 		int startLine = -1;
 		int startCol  = -1;
@@ -302,21 +303,42 @@ public class Lexer
 			{
 				// Process the namespace delimiters (::) as part
 				// of the identifier
-				if (nextChar == ':')
+				if (nextChar == ':' && this.lastChar != ':')
 				{
 					this.lastChar = ':';
 					continue;
 				}
-				else if (lastChar == ':') // Last char was ':', nextChar not a ':'
+				// Last char was ':', nextChar not a ':'
+				else if (nextChar != ':' && this.lastChar == ':')
 				{
 					this.lastChar = nextChar;
 					this.carry    = true;
-					// TODO: This is HORRIBLE. But the alternative seems to be a char buffer.
+					// TODO: This is HORRIBLE, but the alternative seems to be a dynamic char buffer.
 					return new Token(TokenType.Delimiter, ":", this.lineIndex, this.colIndex);
 				}
+				// The full :: 
+				else if (nextChar == ':' && this.lastChar == ':')
+				{
+					// If we have already used a '.' char and are now using a '::'
+					if (identDot) {
+						throwError("Invalid identifier - unexpected namespace qualifier", ErrorType.SyntaxError);
+					}
+					output.append("::");
+					this.lastChar = '\0';
+					continue;
+				}
 				
+				if (nextChar == '.') {
+					identDot = true;
+				}
+				else if (this.lastChar == '.')
+				{
+					if (Character.isDigit(nextChar)) {
+						throwError("Invalid identifier character", ErrorType.SyntaxError);
+					}
+				}
 				// Break on anything but identifier chars (alphanumeric and '_')
-				if (!Character.isLetterOrDigit(nextChar) && nextChar != '_')
+				else if (!Character.isLetterOrDigit(nextChar) && nextChar != '_' && nextChar != ':')
 				{
 					this.carry = true;
 					break;
@@ -368,6 +390,12 @@ public class Lexer
 			}
 			else if (lexeme.equals("true") || lexeme.equals("false")) {
 				type = TokenType.BooleanLiteral;
+			}
+			else if (lexeme.endsWith(".") || lexeme.endsWith("::")) {
+				throwError("Invalid identifier", ErrorType.SyntaxError);
+			}
+			else if (lexeme.equals("_")) {
+				throwError("Invalid identifier", ErrorType.SyntaxError);
 			}
 		}
 		

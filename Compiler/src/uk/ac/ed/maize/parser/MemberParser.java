@@ -3,9 +3,10 @@ package uk.ac.ed.maize.parser;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
+import uk.ac.ed.maize.code.Expression;
 import uk.ac.ed.maize.exceptions.CompilerError;
+import uk.ac.ed.maize.exceptions.ObjectFrozenException;
 import uk.ac.ed.maize.exceptions.SyntaxError;
-import uk.ac.ed.maize.generator.Expression;
 import uk.ac.ed.maize.lexer.Token;
 import uk.ac.ed.maize.lexer.TokenType;
 import uk.ac.ed.maize.meta.Field;
@@ -18,7 +19,7 @@ public class MemberParser
 {
 	// We're looking for fields and bodiless functions (abstract/extern)
 	
-	public static Member parse(ParserContext context, Token[] tokens) throws CompilerError
+	public static Member parse(ParserContext context, Token[] tokens) throws CompilerError, ObjectFrozenException
 	{
 		Parameter  decl       = null;
 		Visibility visibility = null;
@@ -145,7 +146,7 @@ public class MemberParser
 			// ===================
 			
 			return new Method(tokens[0].getLineIndex(), context.getCurrentScope(), decl.getName(), decl.getTypeRef(), 
-					visibility, atts, false, false, params.toArray(new Parameter[0]));
+					visibility, atts, false, false, params.toArray(new Parameter[0]), null);
 		}
 		
 		// Return as field
